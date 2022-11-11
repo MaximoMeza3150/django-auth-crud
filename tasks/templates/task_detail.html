@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Task detail</h2>
+<p>Título: {{task.title}}</p>
+<p>Descripcion: {{task.description}}</p>
+<p>Importancia: {{task.important}}</p>
+<p>Creado: {{task.created}}</p>
+<p>User: {{task.user.username}}</p>
+
+<br><hr>
+
+<h3>Actualizar</h3>
+{{error}}
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Update</button>
+</form>
+<br><hr>
+<form action="{% url 'task_complete' task.id %}" method="post">
+    {% csrf_token %}
+    <button>Completado</button>
+</form>
+<br>
+<form action="{% url 'task_delete' task.id %}" method="post">
+    {% csrf_token %}
+    <button>Delete</button>
+</form>
+{% endblock %}
